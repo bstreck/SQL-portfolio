@@ -1,0 +1,52 @@
+##DataCamp Project: Analyzing International Debt Statistics
+
+*What is the total amount of debt that is owed by the countries listed in the dataset?
+*Which country owns the maximum amount of debt and what does that amount look like?
+*What is the average amount of debt owed by countries across different debt indicators?
+
+--num_distinct_countries
+SELECT COUNT(DISTINCT international_debt.country_name) AS total_distinct_countries
+FROM public.international_debt;
+
+--distinct_debt_indicators
+SELECT DISTINCT(international_debt.indicator_name) AS distinct_debt_indicators
+FROM public.international_debt
+ORDER BY distinct_debt_indicators;
+
+--total_debt
+SELECT ROUND(((SUM(international_debt.debt))/1000000),2) AS total_debt
+FROM public.international_debt;
+
+--highest_debt_country
+SELECT international_debt.country_name,
+		ROUND(SUM(international_debt.debt),2) AS total_debt
+FROM public.international_debt
+GROUP BY international_debt.country_name
+ORDER BY total_debt DESC
+LIMIT 1;
+
+--avg_debt_per_indicator
+SELECT international_debt.indicator_code AS debt_indicator,
+		international_debt.indicator_name, 
+		AVG(international_debt.debt) AS average_debt
+FROM public.international_debt
+GROUP BY debt_indicator, international_debt.indicator_name
+ORDER BY average_debt DESC;
+
+--highest_principal_repayment
+SELECT international_debt.country_name, 
+	international_debt.indicator_name
+FROM public.international_debt
+WHERE international_debt.debt = 
+	(SELECT MAX(international_debt.debt)
+	FROM public.international_debt
+	 WHERE international_debt.indicator_code = 'DT.AMT.DLXF.CD');
+
+--list_of_highest_principal_repayment
+SELECT international_debt.country_name, 
+	international_debt.indicator_name,
+	SUM(ROUND(international_debt.debt,2)) AS total_debt
+FROM public.international_debt
+WHERE international_debt.indicator_code = 'DT.AMT.DLXF.CD' 
+GROUP BY international_debt.country_name, international_debt.indicator_name
+ORDER BY total_debt DESC;
