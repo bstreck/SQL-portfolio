@@ -1,0 +1,14 @@
+##DataCamp Project: Analyzing Motorcycle Part Sales
+
+--Calculate the net revenue for each product line and group results by month and warehouse. The results should be filtered so that only "Wholesale" orders are included.--
+SELECT public.sales.product_line, 
+		CASE WHEN EXTRACT(month FROM public.sales.date) =6 THEN 'June'
+			WHEN EXTRACT(month FROM public.sales.date) =7 THEN 'July'
+			WHEN EXTRACT(month FROM public.sales.date)=8 THEN 'August'
+		END AS month,
+		public.sales.warehouse, 
+		ROUND(SUM(public.sales.total*(1-public.sales.payment_fee))::numeric,2) AS net_revenue
+FROM public.sales
+WHERE public.sales.client_type = 'Wholesale'
+GROUP BY public.sales.product_line, public.sales.warehouse, month
+ORDER BY public.sales.product_line, month, net_revenue DESC;
