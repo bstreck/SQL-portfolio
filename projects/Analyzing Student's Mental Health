@@ -1,0 +1,54 @@
+##DataCamp Project: Analyzing Student's Mental Health
+
+-- Start by counting all of the records in the data, then all records per student type to see how the records are categorized and scored. --
+SELECT COUNT(*) AS total_records
+FROM students;
+
+SELECT inter_dom, COUNT(inter_dom) AS count_inter_dom
+FROM students
+GROUP BY inter_dom
+ORDER BY inter_dom DESC;
+
+
+-- Filter the data to see how it differs between the student types. --
+SELECT *
+FROM students
+WHERE inter_dom ='Inter'
+ORDER BY inter_dom;
+
+SELECT *
+FROM students
+WHERE inter_dom ='Dom'
+ORDER BY inter_dom;
+
+SELECT *
+FROM students
+WHERE inter_dom IS NULL
+ORDER BY inter_dom;
+
+
+--Find the summary statistics of the diagnostic tests for ALL students, rounding to 2 decimal places--
+SELECT ROUND(MAX(todep),2) AS max_phq,
+    ROUND(MIN(todep),2) AS min_phd,
+    ROUND(AVG(todep),2) AS avg_phq,
+    ROUND(MAX(tosc),2) AS max_scs,
+    ROUND(MIN(tosc),2) AS min_scs,
+    ROUND(AVG(tosc),2) AS avg_scs,
+    ROUND(MAX(toas),2) AS max_as,
+    ROUND(MIN(toas),2) AS min_toas,
+    ROUND(AVG(toas),2) AS avg_as
+FROM students;
+
+
+--Find the summary statistics of the diagnostic tests for all INTERNATIONAL students, rounding to 2 decimal places.--
+SELECT ROUND(MAX(todep),2) AS max_phq,
+    ROUND(MIN(todep),2) AS min_phd,
+    ROUND(AVG(todep),2) AS avg_phq,
+    ROUND(MAX(tosc),2) AS max_scs,
+    ROUND(MIN(tosc),2) AS min_scs,
+    ROUND(AVG(tosc),2) AS avg_scs,
+    ROUND(MAX(toas),2) AS max_as,
+    ROUND(MIN(toas),2) AS min_toas,
+    ROUND(AVG(toas),2) AS avg_as
+FROM students
+WHERE inter_dom ='Inter';
