@@ -36,12 +36,10 @@ INSERT INTO books (author, title, words)
     VALUES ("J.R.R. Tolkien", "Return of the King", 134462);
 
 ##Select all the authors who have written more than 1 million words
-  
 SELECT author, SUM(words) AS total_words
 FROM books
 GROUP BY author
 HAVING SUM(words) > 1000000;
-
 
 ##Select all the authors that write more than an average of 150,000 words per book
 SELECT author, AVG(words) AS avg_words
