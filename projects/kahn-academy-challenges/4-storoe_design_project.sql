@@ -1,5 +1,5 @@
 ##Create your own store! Your store should sell one type or category of things. You should have a table for all the items in your store, and at least 5 columns 
- for the kind of data you think you'd need to store. You should sell at least 15 items.##
+ for the kind of data you think you'd need to store. You should sell at least 15 items.
 
   CREATE TABLE grocery (id INTEGER PRIMARY KEY, category TEXT, item TEXT, qty INTEGER, price INTEGER);
   
@@ -23,7 +23,7 @@
   SELECT * 
   FROM grocery; 
 
-##Calulate the total number of items in each category for inventory. Order your items by the quantity in stock.##
+##Calulate the total number of items in each category for inventory. Order your items by the quantity in stock.
  
   SELECT category, SUM(qty) AS total_qty
   FROM grocery
