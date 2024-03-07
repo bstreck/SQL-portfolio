@@ -23,15 +23,12 @@
   FROM grocery; 
 
 ##Calulate the total number of items in each category for inventory. Order your items by the quantity in stock.
- 
   SELECT category, SUM(qty) AS total_qty
   FROM grocery
   GROUP BY category
   ORDER BY total_qty DESC;
- 
 
 ##Select the price total in stock for each categroy. Order by price and show at least one statistic about the items.##
- 
   SELECT category,  price, SUM(qty) AS total_qty
   FROM grocery
   GROUP BY category
