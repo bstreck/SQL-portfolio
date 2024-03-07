@@ -14,7 +14,6 @@
   SELECT *
   FROM movies;
 
-
 ##Select only the movies that were released in the year 2000 or later, not before. Sort the results so that the earlier movies are listed first.
   SELECT *
   FROM movies
